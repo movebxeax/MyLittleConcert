@@ -447,7 +447,7 @@ export default function Layout(props: LayoutProps) {
   };
 
   const action = (
-    <Button color="inherit" size="small" onClick={handleAlert}>
+    <Button color="inherit" size="small" onClick={handleAlertClose}>
       <CloseIcon />
     </Button>
   );
