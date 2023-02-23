@@ -447,7 +447,7 @@ export default function Layout(props: LayoutProps) {
   };
 
   const action = (
-    <Button color="inherit" size="small" onClick={handleAlert}>
+    <Button color="inherit" size="small" onClick={handleAlertClose}>
       <CloseIcon />
     </Button>
   );
@@ -911,7 +911,7 @@ export default function Layout(props: LayoutProps) {
       {/* alert */}
       <Snackbar
         open={openAlert.state}
-        autoHideDuration={20000}
+        autoHideDuration={7000}
         onClose={handleAlertClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
