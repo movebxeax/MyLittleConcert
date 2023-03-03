@@ -6,5 +6,7 @@ export type FeedStateType = {
   changed: boolean;
   feedData: FeedWrapType | null;
   getFeed: ReduxStateType;
+  getFeedFile: ReduxStateType;
   newest: number;
 };
+

@@ -56,6 +56,21 @@ export const checkDuplicateAction = createAsyncThunk(
   }
 );
 
+// 이메일 중복 확인
+export const checkDupEmailAction = createAsyncThunk(
+  "CHECK_DUP_EMAIL",
+  async (email: string, { rejectWithValue }) => {
+    try {
+      const axios = axiosInitializer();
+      const { data } = await axios.get(`/api/users/email/${email}`);
+
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 // 인증번호 이메일 전송
 export const sendEmailAction = createAsyncThunk(
   "SEND_EMAIL",
@@ -132,9 +147,9 @@ export const getMeWithTokenAction = createAsyncThunk(
           Authorization: "Baerer " + getAccessToken(),
         },
       });
-      console.log(`데이터 - User: ${data.userId}`);
-      console.log(`로그인 - User: ${data.avatar}`);
-      console.log(data);
+  // console.log(`데이터 - User: ${data.userId}`);
+  // console.log(`로그인 - User: ${data.avatar}`);
+  // console.log(data);
 
       return data;
     } catch (e) {

@@ -24,8 +24,9 @@ const TutorialPageContainer = styled.div`
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
     }
     & > div {
-      flex: 1;
-      max-width: 350px;
+      /* flex: 1; */
+      width: 350px;
+      height: 450px;
       margin: 0 auto;
     }
   }
@@ -171,3 +172,4 @@ function TutorialPage() {
   );
 }
 export default TutorialPage;
+

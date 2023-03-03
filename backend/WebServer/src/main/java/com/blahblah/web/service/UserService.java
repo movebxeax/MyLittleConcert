@@ -13,6 +13,8 @@ public interface UserService {
 
     boolean isExistUserNickName(String nickName);
 
+    boolean isExistEmail(String email);
+
     void mailSend(MailDto mailDto);
 
     @Transactional

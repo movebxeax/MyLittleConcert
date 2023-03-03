@@ -15,8 +15,6 @@ import Fearful from "../../assets/emoji/fearful.png";
 import Disgusted from "../../assets/emoji/disgusted.png";
 import Clap from "../../assets/emoji/clap.png";
 import Heart from "../../assets/emoji/heart.png";
-import Tears from "../../assets/emoji/tears.png";
-import Tears2 from "../../assets/emoji/tears2.png";
 import Red from "../../assets/lightStick/red.png";
 import Puple from "../../assets/lightStick/puple.png";
 import Blue from "../../assets/lightStick/blue.png";
@@ -183,7 +181,7 @@ export default function AvatarComp({
 
     const imgEl = document.createElement("img");
     if (state === "sad") {
-      imgEl.src = Tears2;
+      imgEl.src = Sad;
     } else if (state === "angry") {
       imgEl.src = Angry;
     } else if (state === "fearful") {
@@ -243,3 +241,4 @@ export default function AvatarComp({
     </AvatarCompContainer>
   );
 }
+

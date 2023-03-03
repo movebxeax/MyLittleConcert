@@ -19,7 +19,9 @@ import {
   signupAction,
   sendEmailAction,
   checkDupNickNameAction,
+  checkDupEmailAction,
 } from "../../redux/modules/user";
+import ButtonComp from "../common/ButtonComp";
 import BasicModal from "../ui/BasicModal";
 
 const buttonBoxStyle = {
@@ -39,6 +41,7 @@ const checkBoxStyle = {
 export default function SignupModal({ open, setOpen }: any): JSX.Element {
   const checkDup = useAppSelector((state) => state.user.checkDuplicate);
   const checkDupNick = useAppSelector((state) => state.user.checkDupNickName);
+  const checkDupEmail = useAppSelector((state) => state.user.checkDupEmail);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const checkEmailNumber = useAppSelector((state) => state.user.checkEmail);
@@ -48,12 +51,13 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
   const [rePw, setRePw] = useState<string>("");
   const [nickName, setNickName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [validEmail, setValidEmail] = useState<boolean>(false);
+  // const [validEmail, setValidEmail] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>("");
   const [showPw, setShowPw] = useState<boolean>(false);
   const [idAvail, setIdAvail] = useState<string>("PleaseCheckId");
   const [pwAvail, setPwAvail] = useState<boolean>(false);
   const [nickNameActivated, setNickNameActivated] = useState<boolean>(false);
+  const [emailActivated, setEmailActivated] = useState<boolean>(false);
   const [nickNameAvail, setNickNameAvail] = useState<string>(
     "PleaseCheckNickName"
   );
@@ -98,6 +102,7 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
     }
   };
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailActivated(true);
     setEmail(e.target.value);
 
     const regex = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -127,6 +132,11 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
   const onConfirmID = () => {
     dispatch(checkDuplicateAction(id));
   };
+
+  const onConfirmEmail = () => {
+    dispatch(checkDupEmailAction(email));
+  };
+
 
   const onConfirmNickName = () => {
     dispatch(checkDupNickNameAction(nickName));
@@ -174,14 +184,22 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
     }
   };
 
+  // useEffect(() => {
+  //   if (checkEmailNumber.data == checkNumber) {
+  //     setValidEmail(true);
+  //     setEmailAvail("Available");
+  //   } else {
+  //     setValidEmail(false);
+  //   }
+  // }, [checkEmailNumber.data, checkNumber]);
+
   useEffect(() => {
-    if (checkEmailNumber.data == checkNumber) {
-      setValidEmail(true);
+    if (checkDupEmail.error) {
+      setEmailAvail("UnAvailable");
+    } else if (checkDupEmail.data) {
       setEmailAvail("Available");
-    } else {
-      setValidEmail(false);
     }
-  }, [checkEmailNumber.data, checkNumber]);
+  }, [checkDupEmail]);
 
   useEffect(() => {
     if (pw === rePw) {
@@ -256,7 +274,7 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
           </Button>
         </div>
         <FormControl variant="standard">
-          <InputLabel htmlFor="pw">Password *</InputLabel>
+          <InputLabel htmlFor="pw">비밀번호 *</InputLabel>
           <Input
             id="pw"
             value={pw}
@@ -282,7 +300,7 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
           </FormHelperText>
         </FormControl>
         <FormControl variant="standard">
-          <InputLabel htmlFor="re-pw">Re-enter Password *</InputLabel>
+          <InputLabel htmlFor="re-pw">비밀번호 확인 *</InputLabel>
           <Input
             id="re-pw"
             value={rePw}
@@ -302,7 +320,7 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
           </FormHelperText>
         </FormControl>
         <FormControl variant="standard">
-          <InputLabel htmlFor="nickName">nickName *</InputLabel>
+          <InputLabel htmlFor="nickName">닉네임 *</InputLabel>
           <Input
             id="nickName"
             value={nickName}
@@ -335,7 +353,7 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
           닉네임 중복 확인
         </Button>
         <FormControl variant="standard">
-          <InputLabel htmlFor="email">email *</InputLabel>
+          <InputLabel htmlFor="email">Email *</InputLabel>
           <Input
             id="email"
             value={email}
@@ -349,16 +367,28 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
             {email &&
               (emailAvail === "Available" ? (
                 <span>사용 가능한 이메일 입니다</span>
-              ) : emailAvail === "PleaseCheckEmail" ? (
-                <span>이메일 인증을 해주세요</span>
-              ) : emailAvail === "RegexFail" ? (
+              )
+              : emailAvail === "UnAvailable" ? (
+                <span>이미 사용중인 이메일 입니다</span>
+              )
+              : emailAvail === "RegexFail" ? (
                 <span>올바른 이메일 형식이 아닙니다</span>
               ) : (
-                <span>유효한 이메일이 아닙니다</span>
+                <span>이메일 중복 체크를 해주세요</span>
               ))}
           </FormHelperText>
         </FormControl>
         <Button
+          onClick={onConfirmEmail}
+          disabled={
+            !emailActivated ||
+            email.length === 0 ||
+            emailAvail === "Available"
+          }
+        >
+          이메일 중복 확인
+        </Button>
+        {/* <Button
           onClick={onSendEmail}
           disabled={
             emailAvail === "RegexFail" || emailAvail === "Available"
@@ -389,9 +419,9 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
               <span>인증번호가 일치하지 않습니다</span>
             )}
           </FormHelperText>
-        </FormControl>
+        </FormControl> */}
         <FormControl variant="standard">
-          <InputLabel htmlFor="phone">phone</InputLabel>
+          <InputLabel htmlFor="phone">연락처</InputLabel>
           <Input
             id="phone"
             value={phone}
@@ -420,12 +450,8 @@ export default function SignupModal({ open, setOpen }: any): JSX.Element {
         </Box>
         {/* </FormGroup> */}
         <Box sx={buttonBoxStyle}>
-          <Button variant="contained" type="submit">
-            Signin
-          </Button>
-          <Button variant="contained" type="submit" onClick={onCloseModal}>
-            Cancel
-          </Button>
+          <ButtonComp text="SIGNUP" type="submit" />
+          <ButtonComp text="CANCEL" onClick={onCloseModal} />
         </Box>
       </Box>
     </BasicModal>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAppDispatch } from "../../redux/configStore.hooks";
 import { signinAction } from "../../redux/modules/user";
 import { removeToken } from "../../redux/modules/user/token";
+import ButtonComp from "../common/ButtonComp";
 import BasicModal from "../ui/BasicModal";
 import NewPasswordModal from "./NewPasswordModal";
 
@@ -63,11 +64,11 @@ export default function SigninModal({
         onSubmit={onSubmit}
       >
         <FormControl variant="standard">
-          <InputLabel htmlFor="id">ID</InputLabel>
+          <InputLabel htmlFor="id">아이디</InputLabel>
           <Input id="id" value={id} onChange={onChangeId} required />
         </FormControl>
         <FormControl variant="standard">
-          <InputLabel htmlFor="pw">Password</InputLabel>
+          <InputLabel htmlFor="pw">비밀번호</InputLabel>
           <Input
             id="pw"
             value={pw}
@@ -77,12 +78,14 @@ export default function SigninModal({
           />
         </FormControl>
         <Box sx={buttonBoxStyle}>
-          <Button variant="contained" type="submit">
+          <ButtonComp text="SIGNIN" type="submit" />
+          {/* <Button variant="contained" type="submit">
             Signin
-          </Button>
+          </Button> */}
           <NewPasswordModal />
         </Box>
       </Box>
     </BasicModal>
   );
 }
+

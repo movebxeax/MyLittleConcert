@@ -181,7 +181,11 @@ const VideoSection: React.FC<{ video: VideoDetailType }> = (props) => {
           <IconButton aria-label="add to favorites" sx={{ ml: 1 }}>
             <VisibilityIcon />
           </IconButton>
-          <Typography variant="body2">{props.video?.views}</Typography>
+          <Typography variant="body2" sx={{ mr: "auto" }}>
+            {props.video?.views}
+          </Typography>
+
+          {/* 설정 버튼 */}
           <FeedSettingButton
             // onClickEditor={onClickEditor}
             handleClickOpen={handleClickOpen}

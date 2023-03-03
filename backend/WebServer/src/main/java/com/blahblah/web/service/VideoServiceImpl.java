@@ -74,7 +74,7 @@ public class VideoServiceImpl implements VideoService{
 
     @Override
     public Page<VideoDTO> readAllVideos(long size,long page) {
-        PageRequest pageRequest = PageRequest.of((int)page, (int)size, Sort.by(Sort.Direction.DESC, "views"));
+        PageRequest pageRequest = PageRequest.of((int)page, (int)size, Sort.by(Sort.Direction.DESC, "createDate"));
         Page<VideoEntity> result = videoRepository.findAll(pageRequest);
         Page<VideoDTO> videos = new VideoDTO().toDtoList(result);
         return videos;

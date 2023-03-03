@@ -6,6 +6,7 @@ const ButtonWrapper = styled.div<{
   width: number | undefined;
   height: number | undefined;
   active: boolean;
+  onlyText?: boolean;
 }>`
   position: relative;
   width: ${({ width }) => (width ? `${width}px` : "90px")};
@@ -28,6 +29,13 @@ const ButtonWrapper = styled.div<{
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    ${({ onlyText }) =>
+      onlyText &&
+      css`
+        background: none;
+        color: #54d7c7;
+        border: none;
+      `}
     & > span {
     }
     & > svg {
@@ -35,9 +43,16 @@ const ButtonWrapper = styled.div<{
     }
     &:hover {
       background: #59d7c8;
+      ${({ onlyText }) =>
+        onlyText &&
+        css`
+          background: none;
+          color: #a8efe7;
+        `}
     }
-    ${({ active }) =>
+    ${({ active, onlyText }) =>
       active &&
+      !onlyText &&
       css`
         color: #ffffffcc;
         background: #55cdbe;
@@ -60,6 +75,13 @@ const ButtonWrapper = styled.div<{
       & > svg {
         margin-top: 3px;
       }
+      ${({ onlyText }) =>
+        onlyText &&
+        css`
+          background: none;
+          box-shadow: none;
+          color: #8ae7dc;
+        `}
     }
   }
   & > div {
@@ -68,29 +90,44 @@ const ButtonWrapper = styled.div<{
     border: 1.5px solid black;
     border-radius: 13px;
     background: #3ba89b;
+    ${({ onlyText }) =>
+      onlyText &&
+      css`
+        border: none;
+        background: none;
+      `}
   }
 `;
 
 type ButtonCompPropsType = {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   width?: number;
   height?: number;
   children?: React.ReactNode;
   active?: boolean;
+  type?: "button" | "submit";
+  onlyText?: boolean;
 };
 
 export default function ButtonComp({
   text,
-  onClick,
+  onClick = () => {},
   width,
   height,
   children,
   active = false,
+  type = "button",
+  onlyText = false,
 }: ButtonCompPropsType): JSX.Element {
   return (
-    <ButtonWrapper width={width} height={height} active={active}>
-      <button onClick={onClick}>
+    <ButtonWrapper
+      width={width}
+      height={height}
+      active={active}
+      onlyText={onlyText}
+    >
+      <button onClick={onClick} type={type}>
         <span>{text}</span>
         {children}
       </button>

@@ -8,6 +8,7 @@ export type UserStateType = {
   signup: ReduxStateType;
   checkDuplicate: ReduxStateType;
   checkDupNickName: ReduxStateType;
+  checkDupEmail: ReduxStateType;
   signin: ReduxStateType;
   getMe: ReduxStateType;
   refreshToken: ReduxStateType;

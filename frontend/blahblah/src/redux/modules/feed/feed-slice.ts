@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { FeedStateType } from "../../../model/feed/feedStateType";
-import { getFeedsAction } from "./feed-action";
+import { getFeedFileAction, getFeedsAction } from "./feed-action";
 import { FeedWrapType } from "../../../model/profile/feedWrapType";
 const initialState: FeedStateType = {
   feeds: [],
   changed: false,
   feedData: null,
   getFeed: { loading: false, data: null, error: null },
+  getFeedFile: { loading: false, data: null, error: null },
   newest: 0,
 };
 
@@ -43,6 +44,21 @@ const feedSlice = createSlice({
         state.getFeed.loading = false;
         state.getFeed.data = null;
         state.getFeed.error = payload;
+      })
+      .addCase(getFeedFileAction.pending, (state) => {
+        state.getFeedFile.loading = true;
+        state.getFeedFile.data = null;
+        state.getFeedFile.error = null;
+      })
+      .addCase(getFeedFileAction.fulfilled, (state, { payload }) => {
+        state.getFeedFile.loading = false;
+        state.getFeedFile.data = payload;
+        state.getFeedFile.error = null;
+      })
+      .addCase(getFeedFileAction.rejected, (state, { payload }) => {
+        state.getFeedFile.loading = false;
+        state.getFeedFile.data = null;
+        state.getFeedFile.error = payload;
       });
   },
 });
@@ -50,3 +66,4 @@ const feedSlice = createSlice({
 export const feedActions = feedSlice.actions;
 
 export default feedSlice.reducer;
+

@@ -16,7 +16,7 @@ const RightVideoSectionContainer = styled.div`
   & > div {
     position: fixed;
     top: 20px;
-    right: 150px;
+    right: 8%;
     width: 300px;
   }
 `;

@@ -57,6 +57,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public boolean isExistEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
     public void mailSend(MailDto mailDto) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailDto.getAddress());

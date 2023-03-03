@@ -15,8 +15,6 @@ import Fearful from "../../assets/emoji/fearful.png";
 import Disgusted from "../../assets/emoji/disgusted.png";
 import Clap from "../../assets/emoji/clap.png";
 import Heart from "../../assets/emoji/heart.png";
-import Tears from "../../assets/emoji/tears.png";
-import Tears2 from "../../assets/emoji/tears2.png";
 import Red from "../../assets/lightStick/red.png";
 import Puple from "../../assets/lightStick/puple.png";
 import Blue from "../../assets/lightStick/blue.png";
@@ -26,12 +24,12 @@ import Pink from "../../assets/lightStick/pink.png";
 const lightStickShakeKeyFrame = keyframes`
   from {
     transform: rotate(70deg);
-    left: 0px;
+    left: -1px;
   }
   to {
     transform: perspective(68px) rotate(60deg) rotateX(311deg)
         translate(18px, 4px);
-    left: -20px;
+    left: -19px;
   } 
 `;
 
@@ -96,7 +94,7 @@ const AvatarCompContainer = styled.div`
   }
   & > div.avatar-comp-emotion {
     position: absolute;
-    top: 100px;
+    top: 55px;
     left: calc(50% - 30px);
     width: 60px;
     height: 60px;
@@ -187,7 +185,7 @@ export default function TutorialAvatar({
 
     const imgEl = document.createElement("img");
     if (state === "sad") {
-      imgEl.src = Tears2;
+      imgEl.src = Sad;
     } else if (state === "angry") {
       imgEl.src = Angry;
     } else if (state === "fearful") {

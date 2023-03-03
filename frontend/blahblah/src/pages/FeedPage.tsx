@@ -71,7 +71,7 @@ export default function FeedPage() {
         component="main"
         sx={{
           flexGrow: 1,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { sm: `calc(100% - ${drawerWidth}px)`, md: "100%" },
         }}
       >
         {isLoggedIn && (

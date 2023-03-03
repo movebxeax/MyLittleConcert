@@ -17,8 +17,6 @@ import { EmotionSignalType } from "../../model/openvidu/emotionSignalType";
 
 import Clap from "../../assets/emoji/clap.png";
 import Heart from "../../assets/emoji/heart.png";
-import Tears from "../../assets/emoji/tears.png";
-import Tears2 from "../../assets/emoji/tears2.png";
 import Red from "../../assets/lightStick/red.png";
 import Puple from "../../assets/lightStick/puple.png";
 import Blue from "../../assets/lightStick/blue.png";
@@ -30,11 +28,11 @@ import { ViewerModelType } from "../../model/openvidu/viewer-model";
 const lightStickShakeKeyFrame = keyframes`
   from {
     transform: rotate(70deg);
-    left: 34px;
+    left: -1px;
   }
   to {
     transform : perspective(50px) rotate(60deg) rotateX(311deg) translate(18px, 4px);
-    left: 14px;
+    left: -19px;
   } 
 `;
 
@@ -100,14 +98,21 @@ const AvatarCompContainer = styled.div`
     height: 100%;
   }
   & > div.avatar-comp-emotion {
-    width: 30px;
-    height: 30px;
+    /* width: 30px;
+    height: 30px; */
+
+    position: absolute;
+    top: -7px;
+    left: calc(50% - 15px);
+    width: 35px;
+    height: 35px;
+
     & > span.emotion {
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       top: 0px;
-      left: 50px;
+      left: 0px;
       right: 0;
       z-index: 10;
       animation: ${emotionKeyFrame} 2s ease-out infinite;
@@ -123,7 +128,7 @@ const AvatarCompContainer = styled.div`
       width: 60px;
       height: 60px;
       top: -28px;
-      left: -7px;
+      left: -40px;
       z-index: 10;
       transform-origin: 90% 100%;
       animation: ${lightStickBalladKeyFrame} 1s ease-in-out alternate infinite;
@@ -137,8 +142,8 @@ const AvatarCompContainer = styled.div`
       position: absolute;
       width: 60px;
       height: 60px;
-      top: -28px;
-      left: 14px;
+      top: -33px;
+      /* left: 14px; */
       z-index: 10;
       animation: ${lightStickShakeKeyFrame} 0.3s ease-in-out alternate infinite;
       & > img {
@@ -180,7 +185,7 @@ export default function AvatarComp3({
 
     const imgEl = document.createElement("img");
     if (state === "sad") {
-      imgEl.src = Tears2;
+      imgEl.src = Sad;
     } else if (state === "angry") {
       imgEl.src = Angry;
     } else if (state === "fearful") {
@@ -233,3 +238,4 @@ export default function AvatarComp3({
     </AvatarCompContainer>
   );
 }
+

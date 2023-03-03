@@ -184,23 +184,13 @@ const LayoutContainer = styled(Box)<{ open: boolean }>`
           .badge-subscribers {
             position: absolute;
             height: 65px;
-            padding: 17px 10px 0px 10px;
+            padding: 13px 10px 0px 10px;
             background-image: url(${BubbleSubscribers});
             background-size: 100% 100%;
             background-repeat: no-repeat;
             animation: ${SubscribersKeyFrame} 0.7s ease-out forwards;
             animation-delay: 0.5s;
             opacity: 0;
-            & button {
-              padding: 0;
-              & svg {
-                color: #808080;
-              }
-            }
-            & span {
-              display: inline-block;
-              font-size: 19px;
-            }
           }
           .badge-userid {
             position: absolute;
@@ -457,7 +447,7 @@ export default function Layout(props: LayoutProps) {
   };
 
   const action = (
-    <Button color="inherit" size="small" onClick={handleAlert}>
+    <Button color="inherit" size="small" onClick={handleAlertClose}>
       <CloseIcon />
     </Button>
   );
@@ -635,15 +625,15 @@ export default function Layout(props: LayoutProps) {
                       </div>
                       <div className="badge-subscribers">
                         {/* <img src={BubbleSubscribers} alt="" /> */}
-                        <IconButton
-                          size="large"
-                          aria-label="show 17 new notifications"
+                        <Button
                           color="inherit"
-                          onClick={() => setOpenAccountModal((prev) => !prev)}
+                          // onClick={() => setOpenAccountModal((prev) => !prev)}
+                          startIcon={<PersonRounded />}
                         >
-                          <PersonRounded />
-                          <span>3</span>
-                        </IconButton>
+                          <Typography sx={{ marginTop: "4px" }}>
+                            {loggedUser.subscribers}
+                          </Typography>
+                        </Button>
                       </div>
 
                       <Tooltip title="내 프로필">
@@ -888,20 +878,6 @@ export default function Layout(props: LayoutProps) {
           {props.children}
         </main>
         {/* <AvatarShortcutButton /> */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            height: "8px",
-            flexDirection: "column",
-            mt: 1,
-          }}
-        >
-          <Divider />
-          <Typography sx={{ mx: "auto" }} variant="caption">
-            Copyright 2023. blahblah Co. all rights reserved.
-          </Typography>
-        </Box>
       </Box>
 
       {/* 로그인 모달 */}
@@ -935,7 +911,7 @@ export default function Layout(props: LayoutProps) {
       {/* alert */}
       <Snackbar
         open={openAlert.state}
-        autoHideDuration={20000}
+        autoHideDuration={7000}
         onClose={handleAlertClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
@@ -976,4 +952,3 @@ export default function Layout(props: LayoutProps) {
     </LayoutContainer>
   );
 }
-

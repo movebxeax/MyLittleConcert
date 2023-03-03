@@ -146,8 +146,8 @@ function Notification(userData: iUserData) {
 
           <List dense={true}>
             {notifications?.map((notification) => {
-              console.log(notification.avatar);
-              console.log(avatarStringToUri(notification.avatar))
+  // console.log(notification.avatar);
+  // console.log(avatarStringToUri(notification.avatar))
               return (
                 <ListItem>
                   {<Avatar alt="Sample" src={avatarStringToUri(notification.avatar)}/>}

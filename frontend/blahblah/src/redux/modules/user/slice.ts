@@ -3,6 +3,7 @@ import { UserStateType } from "../../../model/user/userStateType";
 import {
   checkDuplicateAction,
   checkDupNickNameAction,
+  checkDupEmailAction,
   deleteUserAction,
   getIsOnAirAction,
   getMeWithTokenAction,
@@ -31,6 +32,7 @@ const initialState: UserStateType = {
   signup: { loading: false, data: null, error: null },
   checkDuplicate: { loading: false, data: null, error: null },
   checkDupNickName: { loading: false, data: null, error: null },
+  checkDupEmail: { loading: false, data: null, error: null },
   signin: { loading: false, data: null, error: null },
   getMe: { loading: false, data: null, error: null },
   refreshToken: { loading: false, data: null, error: null },
@@ -91,6 +93,21 @@ const userSlice = createSlice({
         state.checkDupNickName.loading = false;
         state.checkDupNickName.data = null;
         state.checkDupNickName.error = payload;
+      })
+      .addCase(checkDupEmailAction.pending, (state) => {
+        state.checkDupEmail.loading = true;
+        state.checkDupEmail.data = null;
+        state.checkDupEmail.error = null;
+      })
+      .addCase(checkDupEmailAction.fulfilled, (state, { payload }) => {
+        state.checkDupEmail.loading = false;
+        state.checkDupEmail.data = payload;
+        state.checkDupEmail.error = null;
+      })
+      .addCase(checkDupEmailAction.rejected, (state, { payload }) => {
+        state.checkDupEmail.loading = false;
+        state.checkDupEmail.data = null;
+        state.checkDupEmail.error = payload;
       })
       .addCase(signinAction.pending, (state) => {
         state.signin.loading = true;

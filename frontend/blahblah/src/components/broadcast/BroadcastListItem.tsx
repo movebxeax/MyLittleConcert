@@ -11,7 +11,7 @@ const BroadcastListItem: React.FC<{ session: any }> = (props) => {
   const broadcast = useSelector((state: RootState) => state.broadcast);
 
   const joinSessionStart = async () => {
-    console.log(props.session.sessionId);
+  // console.log(props.session.sessionId);
     dispatch(
       broadcastActions.joinSession({ sessionId: props.session.sessionId })
     );

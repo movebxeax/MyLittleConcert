@@ -81,7 +81,7 @@ export default function SubscriberItem({
     });
   };
 
-  console.log("item.isOnAir", item.isOnAir);
+  // console.log("item.isOnAir", item.isOnAir);
 
   useEffect(() => {
     dispatch(getIsOnAirAction(item.userId));

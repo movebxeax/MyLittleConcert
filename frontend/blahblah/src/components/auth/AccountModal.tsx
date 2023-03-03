@@ -19,6 +19,7 @@ import {
   deleteUserAction,
   updateUserAction,
 } from "../../redux/modules/user";
+import ButtonComp from "../common/ButtonComp";
 import BasicModal from "../ui/BasicModal";
 
 const buttonBoxStyle = {
@@ -314,17 +315,12 @@ export default function AccountModal({ open, setOpen }: any): JSX.Element {
           </FormHelperText>
         </FormControl>
         <Box sx={buttonBoxStyle}>
-          <Button variant="contained" type="submit">
-            Confirm
-          </Button>
-          <Button variant="contained" onClick={onCloseModal}>
-            Cancel
-          </Button>
-          <Button variant="contained" onClick={onClickDelete}>
-            회원탈퇴
-          </Button>
+          <ButtonComp text="CONFIRM" type="submit" />
+          <ButtonComp text="CANCEL" onClick={onCloseModal} />
+          <ButtonComp text="회원탈퇴" onClick={onClickDelete} />
         </Box>
       </Box>
     </BasicModal>
   );
 }
+

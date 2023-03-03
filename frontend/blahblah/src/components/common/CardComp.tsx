@@ -211,7 +211,9 @@ export default function CardComp({
               flexDirection: "column",
             }}
           >
-            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+            <Box
+              sx={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+            >
               {/* 유저 닉네임 */}
               <Typography sx={{ fontSize: "sm", fontWeight: "lg" }}>
                 {video?.nickName}
@@ -237,7 +239,7 @@ export default function CardComp({
               <Link
                 level="body3"
                 underline="none"
-                startDecorator={<Visibility sx={{ width: 20 }} />}
+                startDecorator={<Visibility sx={{ width: 16 }} />}
                 color="neutral"
                 sx={{
                   fontSize: "sm",

@@ -169,20 +169,11 @@ CardCompPropsType): JSX.Element {
                   display: "flex",
                 }}
               >
-                <Typography level="h1" noWrap sx={{ fontSize: "lg", mr: 1 }}>
-                  <Link
-                    overlay
-                    underline="none"
-                    sx={{
-                      color: "#fff",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      display: "block",
-                    }}
-                  >
-                    {/* MY LITTLE CONCERT */}
-                  </Link>
-                </Typography>
+                <Typography
+                  level="h1"
+                  noWrap
+                  sx={{ fontSize: "lg", mr: 1 }}
+                ></Typography>
 
                 {/* <CarouselChips chipData={JSON.parse(hashTag as string)} /> */}
               </Box>

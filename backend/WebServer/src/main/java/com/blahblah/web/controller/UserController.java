@@ -46,6 +46,13 @@ public class UserController {
         else return ResponseEntity.ok(new Message("사용가능한 사용자 닉네임입니다"));
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity checkDuplicatedEmail(@PathVariable String email){
+        if(userService.isExistEmail(email))
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new Message("이미 존재하는 이메일입니다"));
+        else return ResponseEntity.ok(new Message("사용가능한 이메일입니다"));
+    }
+
     @GetMapping("/me")
     public ResponseEntity getMyInfo(HttpServletRequest request){
         String accessToken =request.getHeader("Authorization").substring(7);

@@ -47,13 +47,13 @@ const AVATAR_OPTION = {
   clothingColor: [
     "6dbb58",
     "54d7c7",
-    "456dff",
     "7555ca",
     "e24553",
     "f55d81",
     "f3b63a",
     "000000",
     "dddddd",
+    "456dff",
   ],
   eyes: ["open", "happy", "sleep", "wink", "glasses", "sunglasses"],
   facialHair: [
@@ -71,7 +71,6 @@ const AVATAR_OPTION = {
     "shortComboverChops",
     "curly",
     "curlyBun",
-    "curlyHighTop",
     "extraLong",
     "fade",
     "long",
@@ -86,6 +85,7 @@ const AVATAR_OPTION = {
     "bunUndercut",
     "buzzcut",
     "cap",
+    "curlyHighTop",
   ],
   hairColor: [
     "6c4545",
@@ -100,9 +100,9 @@ const AVATAR_OPTION = {
     "CCFFCC",
     "00FFCC",
     "00FFFF",
-    "3333CC",
     "000066",
     "9900FF",
+    "3333CC",
   ],
   mouth: [
     "bigSmile",
@@ -122,9 +122,9 @@ const AVATAR_OPTION = {
     "623d36",
     "92594b",
     "b16a5b",
-    "9999FF",
     "66CC66",
     "CC3333",
+    "9999FF",
   ],
 };
 
@@ -138,9 +138,7 @@ function AvatarPage() {
   const [mouth, setMouth] = useState<number>(0);
   const [nose, setNose] = useState<number>(0);
   const [skinColor, setSkinColor] = useState<number>(0);
-
   const [currentHandler, setCurrentHandler] = useState<string>("skinColor");
-
   const [openSigninModal, setOpenSigninModal] = useState<boolean>(false);
   const isLoggedIn = useAppSelector((state) => state.user.userData.isLoggedIn);
 
@@ -421,7 +419,7 @@ function AvatarPage() {
         }}
       >
         <ThemeProvider theme={BoldKoreanFont}>
-          <Typography variant="h4">Make your own Avatar</Typography>
+          <Typography variant="h4">My Little Audience</Typography>
           <Typography variant="h6">나만의 아바타 만들기</Typography>
         </ThemeProvider>
 

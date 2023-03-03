@@ -9,6 +9,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
+import { getFeedFileAction } from "../../redux/modules/feed/feed-action";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -28,6 +29,7 @@ import { RootState } from "../../redux/configStore";
 import { likeFeedAction } from "../../redux/modules/feed";
 import { likeCancelAction } from "../../redux/modules/feed";
 import { useAppDispatch, useAppSelector } from "../../redux/configStore.hooks";
+import { url } from "inspector";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -47,10 +49,31 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 const FeedListItem: React.FC<{ feed: any }> = (props) => {
   const loggedUserId = useAppSelector((state) => state.user.userData.userId);
   const [expanded, setExpanded] = React.useState(false);
+  const [image, setImage] = React.useState<string>();
+  const getFeedFile = useAppSelector((state) => state.feed.getFeedFile);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  useEffect(() => {
+    if (props.feed.filePath) {
+  // console.log("props.feed.filePath!!!!", props.feed.filePath);
+      dispatch(getFeedFileAction(props.feed.filePath)).then(({ data }: any) => {
+        // setImage(data);
+  // console.log("data!!!!", data);
+  // console.log("redux", getFeedFile.data);
+        const file = new File([getFeedFile.data], props.feed.filePath);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const previewImage = String(event.target?.result);
+          setImage(previewImage);
+        };
+        reader.readAsDataURL(file);
+  // console.log(image);
+      });
+    }
+  }, []);
 
   // 수정 모달 조작
   const [openEditorModal, setOpenEditorModal] = useState<boolean>(false);
@@ -117,7 +140,7 @@ const FeedListItem: React.FC<{ feed: any }> = (props) => {
 
   return (
     <div>
-      <Card>
+      <Card sx={{ width: "100%" }}>
         <CardHeader
           avatar={
             <FeedProfileImage
@@ -139,9 +162,8 @@ const FeedListItem: React.FC<{ feed: any }> = (props) => {
 
         <CardContent>
           <Typography variant="h5">{props.feed.title}</Typography>
-          {/* {props.feed.filePath && <img src={`${process.env.REACT_APP_BASE_URL}+${props.feed.filePath}`} alt=""/>} */}
-          {props.feed.filePath && (
-            <img src={`/loadfile.do?filePath=${props.feed.filePath}`} alt="" />
+          {props.feed.filePath && <div>{props.feed.filePath}</div> && (
+            <img src={image} alt="" style={{ width: "250px" }} />
           )}
           <div>{parse(props.feed.content)}</div>
         </CardContent>
